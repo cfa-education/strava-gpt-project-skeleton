@@ -1,0 +1,375 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "OpenAPI route Schemas",
+    "description": "The OpenAPI route schemas",
+    "version": "0.0.6"
+  },
+  "components": {
+    "schemas": {}
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "getVersion",
+        "summary": "API healthcheck & version",
+        "description": "Healthcheck endpoint that returns API version",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "version": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "version"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schema": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "operationId": "getAthleteProfile",
+        "summary": "Athlete profile",
+        "description": "The Strava Athlete Profile",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "firstname": {
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "type": "string"
+                    },
+                    "bio": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    },
+                    "sex": {
+                      "type": "string"
+                    },
+                    "weight": {
+                      "additionalProperties": true,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "firstname"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/activities": {
+      "get": {
+        "operationId": "listActivities",
+        "summary": "List of Athlete Activities",
+        "description": "List of Activities performed by the Athlete, optionally filtered over a time period",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "before",
+            "required": false,
+            "description": "An epoch timestamp to use for filtering activities that have taken place before a certain time."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "after",
+            "required": false,
+            "description": "An epoch timestamp to use for filtering activities that have taken place after a certain time."
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "page",
+            "required": true,
+            "description": "Page number"
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": true,
+            "description": "Number of items per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of SummaryActivity objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "Strava SummaryActivity object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "The unique identifier of the activity"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "The name of the activity"
+                      },
+                      "distance": {
+                        "type": "number",
+                        "description": "The activity's distance, in meters"
+                      },
+                      "moving_time": {
+                        "type": "integer",
+                        "description": "The activity's moving time, in seconds"
+                      },
+                      "elapsed_time": {
+                        "type": "integer",
+                        "description": "The activity's elapsed time, in seconds"
+                      },
+                      "total_elevation_gain": {
+                        "type": "number",
+                        "description": "The activity's total elevation gain"
+                      },
+                      "elev_high": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "description": "The activity's highest elevation, in meters"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "elev_low": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "description": "The activity's lowest elevation, in meters"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "sport_type": {
+                        "type": "string",
+                        "description": "An Sport Type"
+                      },
+                      "start_date_local": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "The time at which the activity was started in the local timezone"
+                      },
+                      "timezone": {
+                        "type": "string",
+                        "description": "The timezone of the activity"
+                      },
+                      "start_latlng": {
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "description": "The latitude and longitude of the starting position",
+                            "items": {
+                              "type": "number"
+                            },
+                            "minItems": 0,
+                            "maxItems": 2
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "end_latlng": {
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "description": "The latitude and longitude of the end position",
+                            "items": {
+                              "type": "number"
+                            },
+                            "minItems": 0,
+                            "maxItems": 2
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "achievement_count": {
+                        "type": "integer",
+                        "description": "The number of achievements gained during this activity"
+                      },
+                      "map": {
+                        "type": "object",
+                        "description": "An instance of PolylineMap",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Map ID"
+                          },
+                          "polyline": {
+                            "oneOf": [
+                              {
+                                "type": "string",
+                                "description": "Polyline encoded map"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "summary_polyline": {
+                            "oneOf": [
+                              {
+                                "type": "string",
+                                "description": "Summary polyline"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "resource_state": {
+                            "type": "integer",
+                            "description": "Resource detail level"
+                          }
+                        },
+                        "required": [
+                          "id"
+                        ]
+                      },
+                      "workout_type": {
+                        "oneOf": [
+                          {
+                            "type": "integer",
+                            "description": "The activity's workout type"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "average_speed": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "description": "The activity's average speed, in meters per second"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "max_speed": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "description": "The activity's max speed, in meters per second"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "average_cadence": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "description": "The activity's average cadence"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "average_heartrate": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "description": "The activity's average cadence"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "max_heartrate": {
+                        "additionalProperties": true,
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "description": "The activity's average cadence"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name"
+                    ],
+                    "title": "SummaryActivity"
+                  },
+                  "description": "Array of SummaryActivity objects"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://strava-gpt-tool.vercel.app/",
+      "description": "Strava Tool for GPT"
+    }
+  ]
+}
