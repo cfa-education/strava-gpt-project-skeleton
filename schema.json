@@ -9,42 +9,6 @@
     "schemas": {}
   },
   "paths": {
-    "/": {
-      "get": {
-        "operationId": "getVersion",
-        "summary": "API healthcheck & version",
-        "description": "Healthcheck endpoint that returns API version",
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "version": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "version"
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/schema": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
     "/profile": {
       "get": {
         "operationId": "getAthleteProfile",
