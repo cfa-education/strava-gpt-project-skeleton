@@ -1,0 +1,3 @@
+- Based on my Strava data from the last 30 days, give me a 'Progress Report'—am I getting faster, more consistent, or just more tired?
+- Look at my activities from the earlier this week—based on my recent effort levels, what should my run look like today to make sure I'm not overdoing it?
+- Look at my activities from the last 3 months. Am I seeing a genuine improvement in my Aerobic Decoupling (the relationship between my heart rate and pace) on my easy runs, or has my fitness plateaued despite the increase in mileage?

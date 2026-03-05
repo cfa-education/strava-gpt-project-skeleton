@@ -97,7 +97,7 @@
               "type": "number"
             },
             "in": "query",
-            "name": "limit",
+            "name": "per_page",
             "required": true,
             "description": "Number of items per page"
           }
